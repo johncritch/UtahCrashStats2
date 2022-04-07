@@ -1,0 +1,182 @@
+﻿@page
+@model UtahCrashStats.Pages.CrashesModel
+@{
+    ViewData["Title"] = "Utah Crashes";
+    ViewData["SearchTerm"] = Model.searchTerm;
+    ViewData["FilterInput"] = Model.filterString;
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "true";
+}
+
+<!-- Page Heading -->
+<div class="row mb-1">
+    <div class="col">
+        <h1 class="h3 text-gray-800">Crashes</h1>
+    </div>
+    <div class="col pb-2">
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="btn btn-primary float-right mb-1" asp-page="Create">Add New Crash</a>
+        }
+    </div>
+</div>
+
+
+<!-- Crashes -->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Road</th>
+                        <th>City</th>
+                        <th>County</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.crashes)
+                    {
+                        <tr data-toggle="collapse" data-target="#a-@item.CRASH_ID" class="clickable">
+                            <td>@Html.DisplayFor(modelItem => item.CRASH_DATETIME)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MAIN_ROAD_NAME)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CITY)</td>
+                            <td>@Html.DisplayFor(modelItem => item.COUNTY_NAME)</td>
+                            @if (item.CRASH_SEVERITY_ID == 1)
+                            {
+                                <td>No Injury</td>
+                            }
+                            else if (item.CRASH_SEVERITY_ID == 2)
+                            {
+                                <td>Possible Injury</td>
+                            }
+                            else if (item.CRASH_SEVERITY_ID == 3)
+                            {
+                                <td>Minor Injury</td>
+                            }
+                            else if (item.CRASH_SEVERITY_ID == 4)
+                            {
+                                <td>Severe Injury</td>
+                            }
+                            else if (item.CRASH_SEVERITY_ID == 5)
+                            {
+                                <td>Fatal Injury</td>
+                            }
+                        </tr>
+                        <tr id="a-@item.CRASH_ID" class="collapse">
+                            <td colspan="8">
+
+                                <!-- Crash Details -->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <p class="my-0"><b>ID: </b>@item.CRASH_ID</p>
+                                        <p class="my-0"><b>Route: </b>@item.ROUTE</p>
+                                        <p class="my-0"><b>Milepoint: </b>@item.MILEPOINT</p>
+                                        <p class="my-0"><b>Latitude: </b>@item.LAT_UTM_Y</p>
+                                        <p class="my-0"><b>Longitude: </b>@item.LONG_UTM_X</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="my-0"><b>Tags:</b></p>
+                                        <ul>
+                                            @if (item.WORK_ZONE_RELATED == 1)
+                                            {
+                                                <li>Work Zone</li>
+                                            }
+                                            @if (item.PEDESTRIAN_INVOLVED == 1)
+                                            {
+                                                <li>Pedestrian</li>
+                                            }
+                                            @if (item.BICYCLIST_INVOLVED == 1)
+                                            {
+                                                <li>Bicyclist</li>
+                                            }
+                                            @if (item.MOTORCYCLE_INVOLVED == 1)
+                                            {
+                                                <li>Motorcycle</li>
+                                            }
+                                            @if (item.IMPROPER_RESTRAINT == 1)
+                                            {
+                                                <li>Improper Restraint</li>
+                                            }
+                                            @if (item.UNRESTRAINED == 1)
+                                            {
+                                                <li>Unrestrained</li>
+                                            }
+                                            @if (item.DUI == 1)
+                                            {
+                                                <li>DUI</li>
+                                            }
+                                            @if (item.INTERSECTION_RELATED == 1)
+                                            {
+                                                <li>Intersection</li>
+                                            }
+                                            @if (item.WILD_ANIMAL_RELATED == 1)
+                                            {
+                                                <li>Wild Animal</li>
+                                            }
+                                            @if (item.DOMESTIC_ANIMAL_RELATED == 1)
+                                            {
+                                                <li>Domestic Animal</li>
+                                            }
+                                            @if (item.OVERTURN_ROLLOVER == 1)
+                                            {
+                                                <li>Rollover</li>
+                                            }
+                                            @if (item.COMMERCIAL_MOTOR_VEH_INVOLVED == 1)
+                                            {
+                                                <li>Commercial Vehicle</li>
+                                            }
+                                            @if (item.TEENAGE_DRIVER_INVOLVED == 1)
+                                            {
+                                                <li>Teenage Driver</li>
+                                            }
+                                            @if (item.INTERSECTION_RELATED == 1)
+                                            {
+                                                <li>Intersection</li>
+                                            }
+                                            @if (item.NIGHT_DARK_CONDITION == 1)
+                                            {
+                                                <li>Nighttime</li>
+                                            }
+                                            @if (item.SINGLE_VEHICLE == 1)
+                                            {
+                                                <li>Single Vehicle</li>
+                                            }
+                                            @if (item.DISTRACTED_DRIVING == 1)
+                                            {
+                                                <li>Distracted Driving</li>
+                                            }
+                                            @if (item.DROWSY_DRIVING == 1)
+                                            {
+                                                <li>Drowsy Driving</li>
+                                            }
+                                            @if (item.ROADWAY_DEPARTURE == 1)
+                                            {
+                                                <li>Roadway Departure</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="col-3">
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                        <div class="float-right">
+                                            <a class="btn btn-secondary" asp-page="Edit" asp-route-id="@item.CRASH_ID">Edit</a>
+                                            <a class="btn btn-danger" asp-page="Delete" asp-route-id="@item.CRASH_ID">Delete</a>
+                                        </div>
+                                        }
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <paging class="pagination" total-records="@Model.totalCrashes" show-total-pages="true" show-total-records="true" page-size="@Model.pageSize" page-no="@Model.pageNum" asp-route-search="@Model.searchTerm"></paging>
+        </div>
+    </div>
+</div>
+

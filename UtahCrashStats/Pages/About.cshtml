@@ -1,0 +1,11 @@
+﻿@page
+@model UtahCrashStats.Pages.AboutModel
+@{
+    ViewData["Title"] = "Utah Crash Stats";
+    ViewData["Filtered"] = false;
+    ViewData["SearchTerm"] = "";
+    ViewData["FilterInput"] = "";
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "false";
+}

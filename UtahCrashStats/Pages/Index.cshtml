@@ -1,0 +1,95 @@
+﻿@page
+@model UtahCrashStats.Pages.IndexModel
+@{
+
+    ViewData["Title"] = "Utah Crash Stats";
+    ViewData["Filtered"] = false;
+    ViewData["SearchTerm"] = "";
+    ViewData["FilterInput"] = "";
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "false";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <p>You are An Admin</p>
+}
+else
+{
+    <p>Not an Admin</p>
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Welcome</h1>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col-6">
+
+        <!-- Introduction -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Our Mission</h6>
+            </div>
+            <div class="card-body">
+                <h3>Every Stat Tells A Story</h3>
+                In 2021, there were [x] deaths resulting from automobile accidents in Utah.
+                While it’s easy to see this number as a simple statistic, every person in
+                that number had family, friends, and loved ones who mourn their loss.
+                <br><br>
+                In this site, you can view and update data gathered from crashes in Utah
+                from 2016, 2017, and 2019. We hope this data provides meaningful analysis
+                on how Utah can improve safety on the road.
+                <br><br>
+                Together we can make steps to save lives.
+                <br><br>
+                <i>Signed,</i>
+                <br>
+                <i>The Utah Crash Stats Team</i>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-6">
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col">
+
+                <!-- Recent Crashes -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-secondary">Recent Crashes</h6>
+                    </div>
+                    <div class="card-body">
+                        Find recent crash reports here.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- Resource 1 -->
+            <div class="col">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-secondary">Further Reading</h6>
+                    </div>
+                    <div class="card-body">
+                        <a href="https://highwaysafety.utah.gov/crash-data/">Utah Crash Data</a><br>
+                        <a href="https://www.autoinjuries.com/utah-auto-accident-statistics/">Auto Injuries Crash Statistics</a><br>
+                        <a href="https://www.ksl.com/article/50322688/why-was-2021-the-deadliest-year-on-utah-roads-since-2002">2021 - The Deadliest Year On Utah Roads</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

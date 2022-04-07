@@ -1,0 +1,323 @@
+﻿@page
+@model UtahCrashStats.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Utah Crash Stats";
+    ViewData["Filtered"] = false;
+    ViewData["SearchTerm"] = "";
+    ViewData["FilterInput"] = "";
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "false";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <button onclick="savePage()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+    </button>
+</div>
+
+<div id="content">
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Average Per Year -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Average Crashes Per Year
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">62626</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Month -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Average Crashes Per Month
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">5219</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Average Crashes Per Week
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">1182</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-week fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Average Crashes Per Day
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">171</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-day fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Crashes Over Time</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="crashes-over-time"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Crashes by Weekday</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="driver-type"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Sunday
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-info"></i> Monday
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> Tuesday
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-warner"></i> Wednesday
+                        </span><br />
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-danger"></i> Thursday
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-secondary"></i> Friday
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-dark"></i> Saturday
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Crash Severity</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="severity"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> No Injury
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-info"></i> Possible Injury
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> Minor Injury
+                        </span><br />
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-warning"></i> Serious Injury
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-danger"></i> Fatal Injury
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="col-xl-8 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Crashes by Type</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-bar">
+                        <canvas id="crashes-by-weekday"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Content Column -->
+        <div class="col-lg-12 mb-4">
+
+            <!-- Approach -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Recent Crashes</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Crash ID</th>
+                                    <th>Date</th>
+                                    <th>Route</th>
+                                    <th>Mile Point</th>
+                                    <th>Road Name</th>
+                                    <th>City</th>
+                                    <th>County</th>
+                                    <th>Severity ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.crashes)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.CRASH_ID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CRASH_DATETIME)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ROUTE)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MILEPOINT)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MAIN_ROAD_NAME)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CITY)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.COUNTY_NAME)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CRASH_SEVERITY_ID)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-primary" asp-page="Crashes">
+                        Show All Crashes
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<button id="cmd">
+    Generate Report
+</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>function savePage() {
+        var element = document.getElementById('content');
+        var opt = {
+            margin: 1,
+            filename: 'dashboard.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+        };
+
+        // New Promise-based usage:
+        html2pdf().set(opt).from(element).save();
+    }</script>

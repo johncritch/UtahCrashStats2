@@ -1,0 +1,98 @@
+﻿@page
+@model UtahCrashStats.Pages.StoryHomeModel
+@{
+    ViewData["Title"] = "Utah Crash Stats";
+    ViewData["Filtered"] = false;
+    ViewData["SearchTerm"] = "";
+    ViewData["FilterInput"] = "";
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "false";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Welcome</h1>
+    <a asp-page="StoryCreate" class="float-right">Post Your Story</a>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col-4">
+        @foreach (var item in Model.Story1)
+        {
+            <!-- Introduction -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(modelItem => item.STORY_RELATION)</h6>
+                </div>
+                <div class="card-body">
+                    @Html.DisplayFor(modelItem => item.STORY_TIME)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.STORY_CONTENT)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.STORY_AUTHOR)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-page="StoryDelete" class="float-right" asp-route-id=@item.STORY_ID>Delete Story</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-4">
+        @foreach (var item in Model.Story2)
+        {
+            <!-- Introduction -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(modelItem => item.STORY_RELATION)</h6>
+                </div>
+                <div class="card-body">
+                    @Html.DisplayFor(modelItem => item.STORY_TIME)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.STORY_CONTENT)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.STORY_AUTHOR)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-page="StoryDelete" class="float-right" asp-route-id=@item.STORY_ID>Delete Story</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-4">
+        @foreach (var item in Model.Story3)
+        {
+            <!-- Introduction -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(modelItem => item.STORY_RELATION)</h6>
+                </div>
+                <div class="card-body">
+                    @Html.DisplayFor(modelItem => item.STORY_TIME)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.STORY_CONTENT)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.STORY_AUTHOR)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-page="StoryDelete" class="float-right" asp-route-id=@item.STORY_ID>Delete Story</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <paging class="pagination text-center" total-records="@Model.totalCrashes" show-total-pages="false" show-total-records="false" show-page-size-nav="false" page-size="@Model.pageSize" page-no="@Model.pageNum"></paging>
+</div>
+
+

@@ -1,0 +1,30 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
+@model UtahCrashStats.Pages.StoryDeleteModel
+@{
+    ViewData["Title"] = "Utah Crash Stats";
+    ViewData["Filtered"] = false;
+    ViewData["SearchTerm"] = "";
+    ViewData["FilterInput"] = "";
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "false";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Crash</h4>
+    <hr />
+    <dl class="row">
+        @Html.DisplayFor(model => model.Story.STORY_CONTENT)
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Story.STORY_ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./StoryHome">Back to List</a>
+    </form>
+</div>

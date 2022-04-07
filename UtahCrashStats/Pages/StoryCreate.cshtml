@@ -1,0 +1,59 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@model UtahCrashStats.Pages.StoryCreateModel
+@{
+    DateTime upload = new DateTime();
+    upload = DateTime.Now;
+    ViewData["Title"] = "Utah Crash Stats";
+    ViewData["Filtered"] = false;
+    ViewData["SearchTerm"] = "";
+    ViewData["FilterInput"] = "";
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "false";
+}
+
+<div class="row">
+    <div class="col-4">
+        <!-- Post Card -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Share a Story</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Story.UPLOAD_TIME" class="form-control" value="@upload" />
+                    <div class="form-group">
+                        @*<label asp-for="Story.STORY_RELATION" class="control-label">Relation to the Crash</label>*@
+                        <input asp-for="Story.STORY_RELATION" class="form-control" placeholder="Title Your Story" />
+                        <span asp-validation-for="Story.STORY_RELATION" class="text-danger"></span>
+                    </div>
+                    <div class="form-row mb-3">
+                        @*<label asp-for="Story.STORY_AUTHOR" class="control-label">Your Name</label>*@
+                        <div class="col">
+                            <input asp-for="Story.STORY_AUTHOR" class="form-control" placeholder="Your Name" />
+                            <span asp-validation-for="Story.STORY_AUTHOR" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <input asp-for="Story.STORY_TIME" class="form-control" placeholder="Time of Crash" />
+                            <span asp-validation-for="Story.STORY_TIME" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @*<label asp-for="Story.STORY_CONTENT" class="control-label">Body</label>*@
+                        <textarea asp-for="Story.STORY_CONTENT" class="form-control" rows="5" placeholder="Your Story"></textarea>
+                        <span asp-validation-for="Story.STORY_CONTENT" class="text-danger"></span>
+                    </div>
+                    <div class="form-row ml-1">
+                        <input type="submit" value="Post" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            <a asp-page="Index">Back to List</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy";
+    ViewData["Filtered"] = false;
+    ViewData["SearchTerm"] = "";
+    ViewData["FilterInput"] = "";
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "false";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Privacy Policy</h1>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col">
+
+        <!-- Privacy Policy -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Your data should stay yours.</h6>
+            </div>
+            <div class="card-body">
+                This is our privacy policy.
+            </div>
+        </div>
+
+    </div>
+</div>

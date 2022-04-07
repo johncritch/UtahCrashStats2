@@ -1,0 +1,200 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
+
+@model UtahCrashStats.Pages.DeleteModel
+
+@{
+    ViewData["Title"] = "Utah Crash Stats";
+    ViewData["Filtered"] = false;
+    ViewData["SearchTerm"] = "";
+    ViewData["FilterInput"] = "";
+    ViewData["FiltersNamesDict"] = Model.filtersNamesDict;
+    ViewData["FiltersDict"] = Model.filtersDict;
+    ViewData["IsCrashesPage"] = "false";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Crash</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.CRASH_DATETIME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.CRASH_DATETIME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.ROUTE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.ROUTE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.MILEPOINT)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.MILEPOINT)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.LAT_UTM_Y)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.LAT_UTM_Y)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.LONG_UTM_X)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.LONG_UTM_X)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.MAIN_ROAD_NAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.MAIN_ROAD_NAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.CITY)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.CITY)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.COUNTY_NAME)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.COUNTY_NAME)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.CRASH_SEVERITY_ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.CRASH_SEVERITY_ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.WORK_ZONE_RELATED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.WORK_ZONE_RELATED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.PEDESTRIAN_INVOLVED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.PEDESTRIAN_INVOLVED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.BICYCLIST_INVOLVED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.BICYCLIST_INVOLVED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.MOTORCYCLE_INVOLVED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.MOTORCYCLE_INVOLVED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.IMPROPER_RESTRAINT)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.IMPROPER_RESTRAINT)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.UNRESTRAINED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.UNRESTRAINED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.DUI)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.DUI)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.INTERSECTION_RELATED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.INTERSECTION_RELATED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.WILD_ANIMAL_RELATED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.WILD_ANIMAL_RELATED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.DOMESTIC_ANIMAL_RELATED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.DOMESTIC_ANIMAL_RELATED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.OVERTURN_ROLLOVER)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.OVERTURN_ROLLOVER)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.COMMERCIAL_MOTOR_VEH_INVOLVED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.COMMERCIAL_MOTOR_VEH_INVOLVED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.TEENAGE_DRIVER_INVOLVED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.TEENAGE_DRIVER_INVOLVED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.OLDER_DRIVER_INVOLVED)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.OLDER_DRIVER_INVOLVED)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.NIGHT_DARK_CONDITION)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.NIGHT_DARK_CONDITION)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.SINGLE_VEHICLE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.SINGLE_VEHICLE)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.DISTRACTED_DRIVING)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.DISTRACTED_DRIVING)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.DROWSY_DRIVING)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.DROWSY_DRIVING)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Crash.ROADWAY_DEPARTURE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crash.ROADWAY_DEPARTURE)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Crash.CRASH_ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
+
