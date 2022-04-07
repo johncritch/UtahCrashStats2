@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using UtahCrashStats.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace UtahCrashStats
 {
@@ -52,6 +53,13 @@ namespace UtahCrashStats
 
             services.AddRazorPages();
 
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddAuthentication()
                  .AddGoogle(options =>
                  {
@@ -81,7 +89,7 @@ namespace UtahCrashStats
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseCookiePolicy();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -89,6 +97,12 @@ namespace UtahCrashStats
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' 'unsafe-inline' 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' cdn.jsdelivr.net;");
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {
