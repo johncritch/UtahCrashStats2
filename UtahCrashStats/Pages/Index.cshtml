@@ -10,51 +10,82 @@
     ViewData["FiltersDict"] = Model.filtersDict;
     ViewData["IsCrashesPage"] = "false";
 }
-
-@if (User.IsInRole("Admin"))
-{
-    <p>You are An Admin</p>
-}
-else
-{
-    <p>Not an Admin</p>
-}
-
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Welcome</h1>
-</div>
-
-<!-- Content Row -->
-<div class="row">
-    <div class="col-6">
-
-        <!-- Introduction -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Our Mission</h6>
-            </div>
-            <div class="card-body">
-                <h3>Every Stat Tells A Story</h3>
-                In 2021, there were 320 deaths resulting from automobile accidents in Utah.
-                While it’s easy to see this number as a simple statistic, every person in
-                that number had family, friends, and loved ones who mourn their loss.
-                <br><br>
-                In this site, you can view and update data gathered from crashes in Utah
-                from 2016, 2017, and 2019. We hope this data provides meaningful analysis
-                on how Utah can improve safety on the road.
-                <br><br>
-                Together we can make steps to save lives.
-                <br><br>
-                <i>Signed,</i>
-                <br>
-                <i>The Utah Crash Stats Team</i>
+<!--Picture-->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="container-image">
+            <img src="~/img/utah.jpeg" class="img-responsive" style="max-height:100%;width:100%"/>
+            <div class="centered" >
+                <h1><b>Every Stat Tells A Story</b></h1>
+                <h5>
+                    <b>
+                        In 2021, there were 320 deaths resulting from automobile accidents in Utah.
+                        While it’s easy to see this number as a simple statistic, every person in
+                        that number had family, friends, and loved ones who mourn their loss.
+                        In this site, you can view and update data gathered from crashes in Utah
+                        from 2016, 2017, 2018, and 2019. We hope this data provides meaningful analysis
+                        on how Utah can improve safety on the road.
+                        <br><br>
+                        Together we can make steps to save lives.
+                        <br><br>
+                        <i>Signed,</i>
+                        <br>
+                        <i>The Utah Crash Stats Team</i>
+                    </b>
+                </h5>
             </div>
         </div>
-
     </div>
+</div>
+<div class="row">
+    <div class="col-7">
 
-    <div class="col-6">
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col-5">
+
+                <!-- Recent Crashes -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-secondary">Top Causes of Accidents</h6>
+                    </div>
+                    <div class="card-body">
+                        1. Distracted Driving<br />
+                        2. Speeding<br />
+                        3. Drunk Driving<br />
+                        4. Reckless Driving<br />
+                        6. Rain<br />
+                        7. Driving under the Influence of Drugs<br />
+                        8. Running Red Lights/Stop Signs<br />
+                        9. Teenage/New Drivers<br />
+                        10. Unsafe Lane Changes
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-7">
+
+                <!-- Recent Crashes -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-secondary">Quick Tips</h6>
+                    </div>
+                    <div class="card-body">
+                        Develop a mature driving attitude.<br />
+                        ALLWAYS wear your seatbelt.<br />
+                        Put own your cellphones unless it is an Emergency.<br />
+                        Follow the three second rule behind another car.<br />
+                        Be aware and never assume the driving of others.<br />
+                        Stay on the defensive side of driving.<br />
+                        Stay out of the drivers seat if you are unwell.<br />
+                        Avoid driving at night or poor weather conditions.<br />
+                        Slowly approach stop signs and red lights.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
         <!-- Content Row -->
         <div class="row">
             <div class="col">
@@ -62,16 +93,15 @@ else
                 <!-- Recent Crashes -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-secondary">Recent Crashes</h6>
+                        <h6 class="m-0 font-weight-bold text-secondary">Slow Down!</h6>
                     </div>
                     <div class="card-body">
-                        Find recent crash reports here.
+                        In 2016, excessive speed was a factor in 38% of fatal crashes, and speed-related crashes were 2.7 times more likely to be fatal than others.<br />
                     </div>
                 </div>
 
             </div>
         </div>
-
         <!-- Content Row -->
         <div class="row">
 
@@ -92,4 +122,5 @@ else
         </div>
     </div>
 </div>
+
 
