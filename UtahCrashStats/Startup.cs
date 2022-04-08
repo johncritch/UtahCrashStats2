@@ -36,6 +36,7 @@ namespace UtahCrashStats
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            //With AWS Secret
             services.AddDbContext<CrashDbContext>(options =>
             {
                 IConfigSettings _configSettings = new ConfigSettings();
@@ -50,6 +51,7 @@ namespace UtahCrashStats
 
             });
 
+            //Without Secret
             /*services.AddDbContext<CrashDbContext>(options =>
             {
                 options.UseMySql(Configuration["ConnectionStrings:CrashDbConnection"]);
@@ -79,6 +81,7 @@ namespace UtahCrashStats
 
             services.AddSingleton<IConfigSettings, ConfigSettings>();
 
+            //With AWS Secret
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
@@ -87,6 +90,7 @@ namespace UtahCrashStats
                     options.ClientSecret = _configSettings.ClientSecret;
                 });
 
+            //Without Secret
             /*services.AddAuthentication()
                  .AddGoogle(options =>
                  {
