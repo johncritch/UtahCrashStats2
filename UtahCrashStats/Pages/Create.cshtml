@@ -13,173 +13,109 @@
     ViewData["IsCrashesPage"] = "false";
 }
 
-<h1>Create</h1>
-
-<h4>Crash</h4>
+<h1>New Crash</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Crash.CRASH_DATETIME" class="control-label"></label>
-                <input asp-for="Crash.CRASH_DATETIME" class="form-control" />
-                <span asp-validation-for="Crash.CRASH_DATETIME" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.ROUTE" class="control-label"></label>
-                <input asp-for="Crash.ROUTE" class="form-control" />
-                <span asp-validation-for="Crash.ROUTE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.MILEPOINT" class="control-label"></label>
-                <input asp-for="Crash.MILEPOINT" class="form-control" />
-                <span asp-validation-for="Crash.MILEPOINT" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.LAT_UTM_Y" class="control-label"></label>
-                <input asp-for="Crash.LAT_UTM_Y" class="form-control" />
-                <span asp-validation-for="Crash.LAT_UTM_Y" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.LONG_UTM_X" class="control-label"></label>
-                <input asp-for="Crash.LONG_UTM_X" class="form-control" />
-                <span asp-validation-for="Crash.LONG_UTM_X" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.MAIN_ROAD_NAME" class="control-label"></label>
-                <input asp-for="Crash.MAIN_ROAD_NAME" class="form-control" />
-                <span asp-validation-for="Crash.MAIN_ROAD_NAME" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.CITY" class="control-label"></label>
-                <input asp-for="Crash.CITY" class="form-control" />
-                <span asp-validation-for="Crash.CITY" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.COUNTY_NAME" class="control-label"></label>
-                <input asp-for="Crash.COUNTY_NAME" class="form-control" />
-                <span asp-validation-for="Crash.COUNTY_NAME" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.CRASH_SEVERITY_ID" class="control-label"></label>
-                <select asp-for="Crash.CRASH_SEVERITY_ID" class="form-control selectpicker">
-                    <option value="1">No Injury</option>
-                    <option value="2">Possible Injury</option>
-                    <option value="3">Minor Injury</option>
-                    <option value="4">Severe Injury</option>
-                    <option value="5">Fatal Injury</option>
-                </select>
-                <span asp-validation-for="Crash.CRASH_SEVERITY_ID" class="text-danger"></span>
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="Crash.CRASH_DATETIME" class="control-label">Date of Crash</label>
+                        <input asp-for="Crash.CRASH_DATETIME" class="form-control" />
+                        <span asp-validation-for="Crash.CRASH_DATETIME" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Crash.MILEPOINT" class="control-label">Milepoint</label>
+                        <input asp-for="Crash.MILEPOINT" class="form-control" />
+                        <span asp-validation-for="Crash.MILEPOINT" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Crash.LAT_UTM_Y" class="control-label">Latitude</label>
+                        <input asp-for="Crash.LAT_UTM_Y" class="form-control" />
+                        <span asp-validation-for="Crash.LAT_UTM_Y" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Crash.LONG_UTM_X" class="control-label">Longitude</label>
+                        <input asp-for="Crash.LONG_UTM_X" class="form-control" />
+                        <span asp-validation-for="Crash.LONG_UTM_X" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="Crash.ROUTE" class="control-label">Route</label>
+                        <input asp-for="Crash.ROUTE" class="form-control" type="text" />
+                        <span asp-validation-for="Crash.ROUTE" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Crash.MAIN_ROAD_NAME" class="control-label">Road</label>
+                        <input asp-for="Crash.MAIN_ROAD_NAME" class="form-control" />
+                        <span asp-validation-for="Crash.MAIN_ROAD_NAME" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Crash.CITY" class="control-label">City</label>
+                        <input asp-for="Crash.CITY" class="form-control" />
+                        <span asp-validation-for="Crash.CITY" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Crash.COUNTY_NAME" class="control-label">County</label>
+                        <input asp-for="Crash.COUNTY_NAME" class="form-control" />
+                        <span asp-validation-for="Crash.COUNTY_NAME" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="Crash.CRASH_SEVERITY_ID" class="control-label">Severity</label>
+                        <select asp-for="Crash.CRASH_SEVERITY_ID" class="form-control selectpicker">
+                            <option value="1">No Injury</option>
+                            <option value="2">Possible Injury</option>
+                            <option value="3">Minor Injury</option>
+                            <option value="4">Severe Injury</option>
+                            <option value="5">Fatal Injury</option>
+                        </select>
+                        <span asp-validation-for="Crash.CRASH_SEVERITY_ID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="details" class="control-label">Add Details</label>
+                        <select multiple class="form-control selectpicker" name="details" id="details" title="Select" data-actions-box="true">
+                            <optgroup label="Details">
+                                @foreach (var detail in Model.filtersNamesDict)
+                                {
+                                    @if (detail.Key != "sev1" && detail.Key != "sev2" && detail.Key != "sev3" && detail.Key != "sev4" && detail.Key != "sev5")
+                                    {
+                                        @if (Model.detailsDict[detail.Key] == 1)
+                                        {
+                                            <option selected value=@detail.Key>@detail.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value=@detail.Key>@detail.Value</option>
+                                        }
+                                    }
+                                }
+                            </optgroup>
+                        </select>
+                        <input type="hidden" value="@Model.detailsString" name="detailsInput" id="detailsInput" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" onclick="updateDetails()" />
+                    </div>
+                </div>
             </div>
 
-
-            <div class="form-group">
-                <label asp-for="Crash.WORK_ZONE_RELATED" class="control-label"></label>
-                @*<input asp-for="Crash.WORK_ZONE_RELATED" type="checkbox" value="0" hidden class="form-control" />*@
-                @*<input asp-for="Crash.WORK_ZONE_RELATED" type="checkbox" value="true" class="form-control" />*@
-                <input asp-for="Crash.WORK_ZONE_RELATED" class="form-control" />
-                <span asp-validation-for="Crash.WORK_ZONE_RELATED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.PEDESTRIAN_INVOLVED" class="control-label"></label>
-                <input asp-for="Crash.PEDESTRIAN_INVOLVED" class="form-control" />
-                <span asp-validation-for="Crash.PEDESTRIAN_INVOLVED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.BICYCLIST_INVOLVED" class="control-label"></label>
-                <input asp-for="Crash.BICYCLIST_INVOLVED" class="form-control" />
-                <span asp-validation-for="Crash.BICYCLIST_INVOLVED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.MOTORCYCLE_INVOLVED" class="control-label"></label>
-                <input asp-for="Crash.MOTORCYCLE_INVOLVED" class="form-control" />
-                <span asp-validation-for="Crash.MOTORCYCLE_INVOLVED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.IMPROPER_RESTRAINT" class="control-label"></label>
-                <input asp-for="Crash.IMPROPER_RESTRAINT" class="form-control" />
-                <span asp-validation-for="Crash.IMPROPER_RESTRAINT" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.UNRESTRAINED" class="control-label"></label>
-                <input asp-for="Crash.UNRESTRAINED" class="form-control" />
-                <span asp-validation-for="Crash.UNRESTRAINED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.DUI" class="control-label"></label>
-                <input asp-for="Crash.DUI" class="form-control" />
-                <span asp-validation-for="Crash.DUI" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.INTERSECTION_RELATED" class="control-label"></label>
-                <input asp-for="Crash.INTERSECTION_RELATED" class="form-control" />
-                <span asp-validation-for="Crash.INTERSECTION_RELATED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.WILD_ANIMAL_RELATED" class="control-label"></label>
-                <input asp-for="Crash.WILD_ANIMAL_RELATED" class="form-control" />
-                <span asp-validation-for="Crash.WILD_ANIMAL_RELATED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.DOMESTIC_ANIMAL_RELATED" class="control-label"></label>
-                <input asp-for="Crash.DOMESTIC_ANIMAL_RELATED" class="form-control" />
-                <span asp-validation-for="Crash.DOMESTIC_ANIMAL_RELATED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.OVERTURN_ROLLOVER" class="control-label"></label>
-                <input asp-for="Crash.OVERTURN_ROLLOVER" class="form-control" />
-                <span asp-validation-for="Crash.OVERTURN_ROLLOVER" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.COMMERCIAL_MOTOR_VEH_INVOLVED" class="control-label"></label>
-                <input asp-for="Crash.COMMERCIAL_MOTOR_VEH_INVOLVED" class="form-control" />
-                <span asp-validation-for="Crash.COMMERCIAL_MOTOR_VEH_INVOLVED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.TEENAGE_DRIVER_INVOLVED" class="control-label"></label>
-                <input asp-for="Crash.TEENAGE_DRIVER_INVOLVED" class="form-control" />
-                <span asp-validation-for="Crash.TEENAGE_DRIVER_INVOLVED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.OLDER_DRIVER_INVOLVED" class="control-label"></label>
-                <input asp-for="Crash.OLDER_DRIVER_INVOLVED" class="form-control" />
-                <span asp-validation-for="Crash.OLDER_DRIVER_INVOLVED" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.NIGHT_DARK_CONDITION" class="control-label"></label>
-                <input asp-for="Crash.NIGHT_DARK_CONDITION" class="form-control" />
-                <span asp-validation-for="Crash.NIGHT_DARK_CONDITION" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.SINGLE_VEHICLE" class="control-label"></label>
-                <input asp-for="Crash.SINGLE_VEHICLE" class="form-control" />
-                <span asp-validation-for="Crash.SINGLE_VEHICLE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.DISTRACTED_DRIVING" class="control-label"></label>
-                <input asp-for="Crash.DISTRACTED_DRIVING" class="form-control" />
-                <span asp-validation-for="Crash.DISTRACTED_DRIVING" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.DROWSY_DRIVING" class="control-label"></label>
-                <input asp-for="Crash.DROWSY_DRIVING" class="form-control" />
-                <span asp-validation-for="Crash.DROWSY_DRIVING" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Crash.ROADWAY_DEPARTURE" class="control-label"></label>
-                <input asp-for="Crash.ROADWAY_DEPARTURE" class="form-control" />
-                <span asp-validation-for="Crash.ROADWAY_DEPARTURE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
         </form>
     </div>
 </div>
 
+<script>
+    function updateDetails() {
+        $('#detailsInput').val($('#details').val());
+    }
+</script>
+
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Crashes">Back to List</a>
 </div>
 
 @*@section Scripts {

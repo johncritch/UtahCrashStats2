@@ -203,7 +203,7 @@ namespace UtahCrashStats.Pages
                 severity = 5;
             }
 
-            if (severity == 0)
+            if (severity == 0 && (searchTerm != "" || filterString != ""))
             {
                 includesSeverity = false;
                 crashes = context.Crash
@@ -261,10 +261,8 @@ namespace UtahCrashStats.Pages
                     (x.ROADWAY_DEPARTURE.Equals(filtersDict["road"]) || x.ROADWAY_DEPARTURE.Equals(1))
                     )
                     .Count();
-                pageSize = s;
-                pageNum = p;
             }
-            else
+            else if (severity != 0 && (searchTerm != "" || filterString != ""))
             {
                 includesSeverity = true;
                 crashes = context.Crash
@@ -324,9 +322,17 @@ namespace UtahCrashStats.Pages
                     (x.ROADWAY_DEPARTURE.Equals(filtersDict["road"]) || x.ROADWAY_DEPARTURE.Equals(1))
                     )
                     .Count();
-                pageSize = s;
-                pageNum = p;
+            } else
+            {
+                crashes = context.Crash
+                    .OrderByDescending(x => x.CRASH_DATETIME)
+                    .Skip((p - 1) * s)
+                    .Take(s)
+                    .ToList();
+                totalCrashes = context.Crash
+                    .Count();
             }
+<<<<<<< HEAD
 
             var result = session.Run(new List<NamedOnnxValue>
             {
@@ -337,6 +343,10 @@ namespace UtahCrashStats.Pages
             result.Dispose();
 
             predictedSeverity = (int)Math.Round(prediction.PredictedSeverity);
+=======
+            pageSize = s;
+            pageNum = p;
+>>>>>>> origin
         }
     }
 }
