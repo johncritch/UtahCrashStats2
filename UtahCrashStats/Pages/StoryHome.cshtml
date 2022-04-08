@@ -27,13 +27,13 @@
                     <h6 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(modelItem => item.STORY_RELATION)</h6>
                 </div>
                 <div class="card-body">
-                    @Html.DisplayFor(modelItem => item.STORY_TIME)
+                    Crash Date: @Html.DisplayFor(modelItem => item.STORY_TIME)
                     <br><br>
                     @Html.DisplayFor(modelItem => item.STORY_CONTENT)
                     <br><br>
                     @Html.DisplayFor(modelItem => item.STORY_AUTHOR)
                     <br>
-                    @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
+                    Uploaded At: @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-page="StoryDelete" class="float-right" asp-route-id=@item.STORY_ID>Delete Story</a>
@@ -51,13 +51,13 @@
                     <h6 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(modelItem => item.STORY_RELATION)</h6>
                 </div>
                 <div class="card-body">
-                    @Html.DisplayFor(modelItem => item.STORY_TIME)
+                    Crash Date: @Html.DisplayFor(modelItem => item.STORY_TIME)
                     <br><br>
                     @Html.DisplayFor(modelItem => item.STORY_CONTENT)
                     <br><br>
                     @Html.DisplayFor(modelItem => item.STORY_AUTHOR)
                     <br>
-                    @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
+                    Uploaded At: @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-page="StoryDelete" class="float-right" asp-route-id=@item.STORY_ID>Delete Story</a>
@@ -75,13 +75,13 @@
                     <h6 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(modelItem => item.STORY_RELATION)</h6>
                 </div>
                 <div class="card-body">
-                    @Html.DisplayFor(modelItem => item.STORY_TIME)
+                    Crash Date: @Html.DisplayFor(modelItem => item.STORY_TIME)
                     <br><br>
                     @Html.DisplayFor(modelItem => item.STORY_CONTENT)
                     <br><br>
                     @Html.DisplayFor(modelItem => item.STORY_AUTHOR)
                     <br>
-                    @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
+                    Uploaded At: @Html.DisplayFor(modelItem => item.UPLOAD_TIME)
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-page="StoryDelete" class="float-right" asp-route-id=@item.STORY_ID>Delete Story</a>
