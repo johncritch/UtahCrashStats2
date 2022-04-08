@@ -87,7 +87,7 @@ namespace UtahCrashStats.Pages
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Crashes");
         }
     }
 }
