@@ -13,6 +13,29 @@
 <div class="row mb-1">
     <div class="col">
         <h1 class="h3 text-gray-800">Crashes</h1>
+        @if (!Model.includesSeverity) {
+            @if (@Model.predictedSeverity == 5)
+            {
+                <p>A crash with these filters would likely result in a <span class="text-danger">Fatal Injury</span></p>
+            }
+            else if (@Model.predictedSeverity == 4)
+            {
+                <p>A crash with these filters would likely result in a <span class="text-warning">Severe Injury</span></p>
+            }
+            else if (@Model.predictedSeverity == 3)
+            {
+                <p>A crash with these filters would likely result in a <span class="text-primary">Minor Injury</span></p>
+            }
+            else if (@Model.predictedSeverity == 2)
+            {
+                <p>A crash with these filters would likely result in a <span class="text-info">Possible Injury</span></p>
+            }
+            else
+            {
+                <p>A crash with these filters would likely result in <span class="text-success">No Injury</span></p>
+            }
+        }
+
     </div>
     <div class="col pb-2">
         @if (User.IsInRole("Admin"))

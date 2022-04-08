@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using UtahCrashStats.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.ML.OnnxRuntime;
 
 namespace UtahCrashStats
 {
@@ -73,6 +74,8 @@ namespace UtahCrashStats
                 options.AddPolicy("RequireAdministratorRole",
                      policy => policy.RequireRole("Administrator"));
             });
+            services.AddSingleton<InferenceSession>(
+                new InferenceSession("wwwroot/crash1.onnx"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

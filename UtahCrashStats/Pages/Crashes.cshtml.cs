@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 using UtahCrashStats.Models;
 
 namespace UtahCrashStats.Pages
@@ -12,10 +14,12 @@ namespace UtahCrashStats.Pages
     public class CrashesModel : PageModel
     {
         private readonly UtahCrashStats.Models.CrashDbContext context;
+        private InferenceSession session;
 
-        public CrashesModel(UtahCrashStats.Models.CrashDbContext _context)
+        public CrashesModel(UtahCrashStats.Models.CrashDbContext _context, InferenceSession _session)
         {
             context = _context;
+            session = _session;
 
             filtersNamesDict = new Dictionary<string, string>();
             filtersNamesDict.Add("sev1", "No Injury");
@@ -62,8 +66,14 @@ namespace UtahCrashStats.Pages
 
         public string filterString { get; set; }
 
+        public int predictedSeverity { get; set; }
+
         public Dictionary<string, int> filtersDict { get; set; }
         public Dictionary<string, string> filtersNamesDict { get; set; }
+
+        public PredictionInput data { get; set; }
+
+        public bool includesSeverity { get; set; }
 
         public void OnGet(string filterInput = "", int p = 1, int s = 10, string search = "")
         {
@@ -92,6 +102,85 @@ namespace UtahCrashStats.Pages
                     }
                 }
             }
+
+            data = new PredictionInput();
+            
+            data.Bicyclist = (float)0;
+            
+            if (searchTerm.Contains("salt lake city"))
+            {
+                data.CitySaltLake = 1;
+                data.CountySaltLake = 1;
+            }
+            else
+            {
+                data.CitySaltLake = 0;
+                data.CountySaltLake = 0;
+            }
+            if (searchTerm.Contains("west valley"))
+            {
+                data.CityWestValley = 1;
+                data.CountySaltLake = 1;
+            }
+            else
+            {
+                data.CityWestValley = 1;
+                data.CountySaltLake = 1;
+            }
+            if (data.CitySaltLake == 1 || data.CityWestValley == 1)
+            {
+                data.CityOther = 0;
+            }
+            else
+            {
+                data.CityOther = 1;
+            }
+            if (searchTerm.Contains("Weber"))
+            {
+                data.CountyWeber = 1;
+            }
+            else
+            {
+                data.CountyWeber = 0;
+            }
+            data.CountyUtah = 0;
+            if (data.CountyWeber == 1 || data.CountySaltLake == 1)
+            {
+                data.CountyOther = 0;
+            }
+            else
+            {
+                data.CountyOther = 1;
+            }
+          
+            data.ComercialVehicle = filtersDict["comm"];
+            data.DistractedDriving = filtersDict["dist"];
+            data.DomesticAnimal = filtersDict["dome"];
+            data.DrowsyDriving = filtersDict["drow"];
+            data.DUI = filtersDict["duii"];
+            data.ImproperRestraint = filtersDict["impr"];
+            data.Intersection = filtersDict["inte"];
+            data.Milepoint = 0;
+            data.Motorcycle = filtersDict["moto"];
+            data.NightTime = filtersDict["nigh"];
+            data.OlderDriver = filtersDict["seni"];
+            data.Pedestrian = filtersDict["pede"];
+            data.RoadwayDeparture = filtersDict["road"];
+            data.Rollover = filtersDict["roll"];
+            if (searchTerm.Contains("89"))
+            {
+                data.Route89 = 1;
+            }
+            else
+            {
+                data.Route89 = 0;
+            }
+            data.SingleVehicle = filtersDict["sing"];
+            data.TeanageDriver = filtersDict["teen"];
+            data.Unrestrained = filtersDict["unre"];
+            data.WildAnimal = filtersDict["wild"];
+            data.WorkZone = filtersDict["work"];
+
             int severity = 0;
             if (filtersDict["sev1"] == 1)
             {
@@ -116,7 +205,7 @@ namespace UtahCrashStats.Pages
 
             if (severity == 0)
             {
-
+                includesSeverity = false;
                 crashes = context.Crash
                     .Where(
                     x => (x.CITY.Contains(searchTerm) ||
@@ -177,6 +266,7 @@ namespace UtahCrashStats.Pages
             }
             else
             {
+                includesSeverity = true;
                 crashes = context.Crash
                     .Where(
                     x => (x.CITY.Contains(searchTerm) ||
@@ -237,6 +327,16 @@ namespace UtahCrashStats.Pages
                 pageSize = s;
                 pageNum = p;
             }
+
+            var result = session.Run(new List<NamedOnnxValue>
+            {
+                NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor()) 
+            });
+            Tensor<float> score = result.First().AsTensor<float>();
+            var prediction = new PredictionOutput { PredictedSeverity = score.First() };
+            result.Dispose();
+
+            predictedSeverity = (int)Math.Round(prediction.PredictedSeverity);
         }
     }
 }
