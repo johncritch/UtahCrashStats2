@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using UtahCrashStats.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.ML.OnnxRuntime;
+using UtahCrashStats.Secrets;
 
 namespace UtahCrashStats
 {
@@ -30,11 +31,26 @@ namespace UtahCrashStats
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<CrashDbContext>(options =>
+            {
+                IConfigSettings _configSettings = new ConfigSettings();
+                options.UseMySql(_configSettings.CrashDbConnection);
+
+            });
+
+            services.AddDbContext<StoryDbContext>(options =>
+            {
+                IConfigSettings _configSettings = new ConfigSettings();
+                options.UseMySql(_configSettings.StoryDbConnection);
+
+            });
+
+            /*services.AddDbContext<CrashDbContext>(options =>
             {
                 options.UseMySql(Configuration["ConnectionStrings:CrashDbConnection"]);
 
@@ -44,7 +60,7 @@ namespace UtahCrashStats
             {
                 options.UseMySql(Configuration["ConnectionStrings:StoryDbConnection"]);
 
-            });
+            });*/
 
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoleManager<RoleManager<IdentityRole>>()
@@ -61,14 +77,24 @@ namespace UtahCrashStats
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSingleton<IConfigSettings, ConfigSettings>();
+
             services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    IConfigSettings _configSettings = new ConfigSettings();
+                    options.ClientId = _configSettings.ClientId;
+                    options.ClientSecret = _configSettings.ClientSecret;
+                });
+
+            /*services.AddAuthentication()
                  .AddGoogle(options =>
                  {
                      IConfigurationSection googleAuthNSection =
                      Configuration.GetSection("Authentication:Google");
                      options.ClientId = googleAuthNSection["ClientId"];
                      options.ClientSecret = googleAuthNSection["ClientSecret"];
-                 });
+                 });*/
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
