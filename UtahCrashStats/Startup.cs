@@ -39,19 +39,17 @@ namespace UtahCrashStats
             //With AWS Secret
             services.AddDbContext<CrashDbContext>(options =>
             {
-                IConfigSettings _configSettings = new ConfigSettings();
-                options.UseMySql(_configSettings.CrashDbConnection);
+                options.UseMySql(Environment.GetEnvironmentVariable("CrashDbConnection").ToString());
 
             });
 
             services.AddDbContext<StoryDbContext>(options =>
             {
-                IConfigSettings _configSettings = new ConfigSettings();
-                options.UseMySql(_configSettings.StoryDbConnection);
+                options.UseMySql(Environment.GetEnvironmentVariable("StoryDbConnection").ToString());
 
             });
 
-            //Without Secret
+            //Without Secret Using Connection String
             /*services.AddDbContext<CrashDbContext>(options =>
             {
                 options.UseMySql(Configuration["ConnectionStrings:CrashDbConnection"]);
@@ -79,18 +77,19 @@ namespace UtahCrashStats
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddSingleton<IConfigSettings, ConfigSettings>();
+            /*services.AddSingleton<IConfigSettings, ConfigSettings>();*/
+
+    
 
             //With AWS Secret
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    IConfigSettings _configSettings = new ConfigSettings();
-                    options.ClientId = _configSettings.ClientId;
-                    options.ClientSecret = _configSettings.ClientSecret;
+                    options.ClientId = Environment.GetEnvironmentVariable("ClientId").ToString();
+                    options.ClientSecret = Environment.GetEnvironmentVariable("ClientSecret").ToString();
                 });
 
-            //Without Secret
+            //Without Secret Using local env
             /*services.AddAuthentication()
                  .AddGoogle(options =>
                  {
