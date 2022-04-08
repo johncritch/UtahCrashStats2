@@ -49,10 +49,14 @@ namespace UtahCrashStats.Pages
             {
                 filtersDict.Add(filt.Key, 0);
             }
+            detailsDict = new Dictionary<string, int>();
         }
 
         public Dictionary<string, int> filtersDict { get; set; }
         public Dictionary<string, string> filtersNamesDict { get; set; }
+        public Dictionary<string, int> detailsDict { get; set; }
+
+        public string detailsString { get; set; }
 
         [BindProperty]
         public Crash Crash { get; set; }
@@ -66,6 +70,31 @@ namespace UtahCrashStats.Pages
 
             Crash = await _context.Crash.FirstOrDefaultAsync(m => m.CRASH_ID == id);
 
+            detailsDict.Add("sev1", 0);
+            detailsDict.Add("sev2", 0);
+            detailsDict.Add("sev3", 0);
+            detailsDict.Add("sev4", 0);
+            detailsDict.Add("sev5", 0);
+            detailsDict.Add("work", Crash.WORK_ZONE_RELATED);
+            detailsDict.Add("pede", Crash.PEDESTRIAN_INVOLVED);
+            detailsDict.Add("bicy", Crash.BICYCLIST_INVOLVED);
+            detailsDict.Add("moto", Crash.MOTORCYCLE_INVOLVED);
+            detailsDict.Add("impr", Crash.IMPROPER_RESTRAINT);
+            detailsDict.Add("unre", Crash.UNRESTRAINED);
+            detailsDict.Add("duii", Crash.DUI);
+            detailsDict.Add("inte", Crash.INTERSECTION_RELATED);
+            detailsDict.Add("wild", Crash.WILD_ANIMAL_RELATED);
+            detailsDict.Add("dome", Crash.DOMESTIC_ANIMAL_RELATED);
+            detailsDict.Add("roll", Crash.OVERTURN_ROLLOVER);
+            detailsDict.Add("comm", Crash.COMMERCIAL_MOTOR_VEH_INVOLVED);
+            detailsDict.Add("teen", Crash.TEENAGE_DRIVER_INVOLVED);
+            detailsDict.Add("seni", Crash.OLDER_DRIVER_INVOLVED);
+            detailsDict.Add("nigh", Crash.NIGHT_DARK_CONDITION);
+            detailsDict.Add("sing", Crash.SINGLE_VEHICLE);
+            detailsDict.Add("dist", Crash.DISTRACTED_DRIVING);
+            detailsDict.Add("drow", Crash.DROWSY_DRIVING);
+            detailsDict.Add("road", Crash.ROADWAY_DEPARTURE);
+
             if (Crash == null)
             {
                 return NotFound();
@@ -75,8 +104,55 @@ namespace UtahCrashStats.Pages
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id, string detailsInput = "")
         {
+            Crash.CRASH_ID = id;
+            detailsString = detailsInput;
+
+            foreach (var filt in filtersNamesDict)
+            {
+                detailsDict.Add(filt.Key, 0);
+            }
+
+            foreach (var detail in filtersNamesDict)
+            {
+                if (detailsInput != "" && detailsInput != null)
+                {
+                    if (detail.Key == detailsInput.Substring(0, 4))
+                    {
+                        detailsDict[detail.Key] = 1;
+                        if (detailsInput.Length < 5)
+                        {
+                            detailsInput = detailsInput.Remove(0, 4);
+                        }
+                        else
+                        {
+                            detailsInput = detailsInput.Remove(0, 5);
+                        }
+                    }
+                }
+            }
+
+            Crash.WORK_ZONE_RELATED = detailsDict["work"];
+            Crash.PEDESTRIAN_INVOLVED = detailsDict["pede"];
+            Crash.BICYCLIST_INVOLVED = detailsDict["bicy"];
+            Crash.MOTORCYCLE_INVOLVED = detailsDict["moto"];
+            Crash.IMPROPER_RESTRAINT = detailsDict["impr"];
+            Crash.UNRESTRAINED = detailsDict["unre"];
+            Crash.DUI = detailsDict["duii"];
+            Crash.INTERSECTION_RELATED = detailsDict["inte"];
+            Crash.WILD_ANIMAL_RELATED = detailsDict["wild"];
+            Crash.DOMESTIC_ANIMAL_RELATED = detailsDict["dome"];
+            Crash.OVERTURN_ROLLOVER = detailsDict["roll"];
+            Crash.COMMERCIAL_MOTOR_VEH_INVOLVED = detailsDict["comm"];
+            Crash.TEENAGE_DRIVER_INVOLVED = detailsDict["teen"];
+            Crash.OLDER_DRIVER_INVOLVED = detailsDict["seni"];
+            Crash.NIGHT_DARK_CONDITION = detailsDict["nigh"];
+            Crash.SINGLE_VEHICLE = detailsDict["sing"];
+            Crash.DISTRACTED_DRIVING = detailsDict["dist"];
+            Crash.DROWSY_DRIVING = detailsDict["drow"];
+            Crash.ROADWAY_DEPARTURE = detailsDict["road"];
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -100,7 +176,7 @@ namespace UtahCrashStats.Pages
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Crashes");
         }
 
         private bool CrashExists(int id)

@@ -114,7 +114,7 @@ namespace UtahCrashStats.Pages
                 severity = 5;
             }
 
-            if (severity == 0)
+            if (severity == 0 && (searchTerm != "" || filterString != ""))
             {
 
                 crashes = context.Crash
@@ -172,10 +172,8 @@ namespace UtahCrashStats.Pages
                     (x.ROADWAY_DEPARTURE.Equals(filtersDict["road"]) || x.ROADWAY_DEPARTURE.Equals(1))
                     )
                     .Count();
-                pageSize = s;
-                pageNum = p;
             }
-            else
+            else if (severity != 0 && (searchTerm != "" || filterString != ""))
             {
                 crashes = context.Crash
                     .Where(
@@ -234,9 +232,18 @@ namespace UtahCrashStats.Pages
                     (x.ROADWAY_DEPARTURE.Equals(filtersDict["road"]) || x.ROADWAY_DEPARTURE.Equals(1))
                     )
                     .Count();
-                pageSize = s;
-                pageNum = p;
+            } else
+            {
+                crashes = context.Crash
+                    .OrderByDescending(x => x.CRASH_DATETIME)
+                    .Skip((p - 1) * s)
+                    .Take(s)
+                    .ToList();
+                totalCrashes = context.Crash
+                    .Count();
             }
+            pageSize = s;
+            pageNum = p;
         }
     }
 }
