@@ -93,7 +93,7 @@ namespace UtahCrashStats
                 app.UseHsts();
             }
             app.UseCookiePolicy();
-            app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
