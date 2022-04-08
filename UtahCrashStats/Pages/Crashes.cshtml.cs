@@ -332,10 +332,6 @@ namespace UtahCrashStats.Pages
                 totalCrashes = context.Crash
                     .Count();
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> a03e65371c403e2e03761f4e040dbe93d7c8f8a7
             var result = session.Run(new List<NamedOnnxValue>
             {
                 NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor()) 
@@ -345,10 +341,6 @@ namespace UtahCrashStats.Pages
             result.Dispose();
 
             predictedSeverity = (int)Math.Round(prediction.PredictedSeverity);
-<<<<<<< HEAD
-
-=======
->>>>>>> a03e65371c403e2e03761f4e040dbe93d7c8f8a7
             pageSize = s;
             pageNum = p;
         }
